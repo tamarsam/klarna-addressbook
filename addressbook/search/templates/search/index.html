@@ -1,0 +1,69 @@
+{% load static %}
+<html>
+<head>
+    <link
+            href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700'
+            rel='stylesheet'
+            type='text/css'>
+    <link
+            href="{% static 'search/klarna-ui-css-components.css' %}"
+            rel='stylesheet'
+            type='text/css'>
+    <style>
+      .search {
+        margin: 0 auto;
+        width: 800px;
+      }
+
+      .user-avatar {
+        float: left;
+        margin-right: 12px;
+        width: 40px;
+        border-radius: 40px;
+      }
+
+      .results {
+        margin-top: 40px;
+      }
+
+    </style>
+    <title>Address Book</title>
+</head>
+<body>
+<div class="search">
+    <form class="cui__input giant" action="{% url 'results' %}">
+        <input class="cui__input__input" name="q" placeholder="Type your search query"
+               {% if search_query %}value="{{ search_query }}"{% endif %} autofocus="true" required="true">
+    </form>
+
+    {% if people %}
+    <div class="results">
+        {% for person in people %}
+            <div class="cui__selector--direct__item">
+                <img class="user-avatar" src={{ person.avatar_origin }}/>
+
+                <div class="cui__selector--direct__label">
+                    {{ person.name }}
+                </div>
+
+                <p class="cui__selector--direct__description">
+                    <b class="cui__selector--direct__title">Address: </b>{{ person.address }}
+                    <b class="cui__selector--direct__title">Phone: </b>{{ person.phone }}
+                    <br><b class="cui__selector--direct__title">Age: </b>{{ person.age }}
+                </p>
+            </div>
+        {% endfor %}
+
+    </div>
+    {% elif error != None %}
+    <h2 class="cui__selector--direct__title">
+        {{ error }}
+    </h2>
+    {% elif search_query != None %}
+    <h2 class="cui__selector--direct__title">
+        No results, please review your search or try a different one.
+    </h2>
+    {% endif %}
+</div>
+</body>
+</html>

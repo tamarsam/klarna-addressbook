@@ -1,44 +1,8 @@
-# import json
-# import sys
-# from datetime import date
-#
-# import django
-# from django.conf import settings
-#
-# DJANGO_SETTINGS_MODULE = "addressbook.settings"
-#
-# settings.configure()
-# django.setup()
-#
-#
-# from search.models import Address, Name, Person
-#
-#
-# def add_entry(entry):
-#     address = Address(entry['address']['country'], entry['address']['city'], entry['address']['street'])
-#     address.save()
-#     j_name = entry['name'].split()
-#     if not j_name[0].endswith("."):
-#         j_name.insert(None, 0)
-#     name = Name(j_name[0], j_name[1], j_name[2])
-#     name.save()
-#     person = Person(name, "".join(entry['phone'].split("+-()")), entry['avatar_image'], entry['avatar_origin'],
-#                     entry['email'], entry['quote'], entry['chuck'], date.fromtimestamp(entry['birthday']), address)
-#     person.save()
-#
-# if len(sys.argv) > 1:
-#     with open(sys.argv[1]) as json_file:
-#         for line in json_file:
-#             j_line = json.loads(line)
-#             if isinstance(j_line, list):
-#                 for item in j_line:
-#                     add_entry(item)
-#             else:
-#                 add_entry(j_line)
 import json
 import sys
 from datetime import date
 import re
+import os
 
 if len(sys.argv) > 1:
     arr = []
@@ -66,5 +30,5 @@ if len(sys.argv) > 1:
             del(entry["id"])
             obj = {"model": "search.Person", "fields": entry}
             arr.append(obj)
-    with open("search/fixtures/people.json", 'w') as out_file:
+    with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), "search/fixtures/people.json"), 'w') as out_file:
         json.dump(arr, out_file)

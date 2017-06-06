@@ -1,6 +1,6 @@
 # klarna-addressbook
 
-**To run server:**
+**To run server on Linux:**
 `klarna-venv/bin/python addressbook/manage.py runserver`
 
 Access the application at <localhost:8000/search>

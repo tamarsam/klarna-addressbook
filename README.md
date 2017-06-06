@@ -5,6 +5,6 @@
 
 Access the application at <localhost:8000/search>
 
-If the database appears to be empty, run `./load_db.sh` and then run the server again.
+If the database appears to be empty (e.g., all searches return no results), run `./load_db.sh` and then run the server again.
 
 Thank you and enjoy!
